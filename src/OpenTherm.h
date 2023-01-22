@@ -10,8 +10,7 @@ P MGS-TYPE SPARE DATA-ID  DATA-VALUE
 0 000      0000  00000000 00000000 00000000
 */
 
-#ifndef OpenTherm_h
-#define OpenTherm_h
+#pragma once
 
 #include <stdint.h>
 #include <Arduino.h>
@@ -183,9 +182,3 @@ private:
 	void(*handleInterruptCallback)();
 	void(*processResponseCallback)(unsigned long, OpenThermResponseStatus);
 };
-
-#ifndef ICACHE_RAM_ATTR
-#define ICACHE_RAM_ATTR
-#endif
-
-#endif // OpenTherm_h
