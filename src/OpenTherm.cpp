@@ -183,7 +183,7 @@ bool OpenTherm::process()
 	unsigned long ts = responseTimestamp;
 	interrupts();
 
-	if (st == OpenThermStatus::READY) return;
+	if (st == OpenThermStatus::READY) return false;
 	unsigned long newTs = micros();
 	if (st != OpenThermStatus::NOT_INITIALIZED && st != OpenThermStatus::DELAY && (newTs - ts) > 1000000) {
 		status = OpenThermStatus::READY;
