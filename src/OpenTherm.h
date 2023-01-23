@@ -126,7 +126,7 @@ public:
 	OpenThermResponseStatus getLastResponseStatus();
 	const char *statusToString(OpenThermResponseStatus status);
 	void handleInterrupt();
-	void process();
+	bool process();
 	void end();
 
 	bool parity(unsigned long frame);
