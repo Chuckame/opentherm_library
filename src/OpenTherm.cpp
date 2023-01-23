@@ -176,7 +176,7 @@ void IRAM_ATTR OpenTherm::handleInterrupt()
 	}
 }
 
-void OpenTherm::process()
+bool OpenTherm::process()
 {
 	noInterrupts();
 	OpenThermStatus st = status;
@@ -191,6 +191,7 @@ void OpenTherm::process()
 		if (processResponseCallback != NULL) {
 			processResponseCallback(response, responseStatus);
 		}
+		return true;
 	}
 	else if (st == OpenThermStatus::RESPONSE_INVALID) {
 		status = OpenThermStatus::DELAY;
@@ -198,6 +199,7 @@ void OpenTherm::process()
 		if (processResponseCallback != NULL) {
 			processResponseCallback(response, responseStatus);
 		}
+		return true;
 	}
 	else if (st == OpenThermStatus::RESPONSE_READY) {
 		status = OpenThermStatus::DELAY;
@@ -205,12 +207,14 @@ void OpenTherm::process()
 		if (processResponseCallback != NULL) {
 			processResponseCallback(response, responseStatus);
 		}
+		return true;
 	}
 	else if (st == OpenThermStatus::DELAY) {
 		if ((newTs - ts) > 100000) {
 			status = OpenThermStatus::READY;
 		}
 	}
+	return false;
 }
 
 bool OpenTherm::parity(unsigned long frame) //odd parity
